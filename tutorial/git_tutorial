@@ -1,0 +1,80 @@
+Git Tutorial
+---
+
+.git init
+	khởi tạo git ở dưới local
+	tạo ra 1 folder .git -> chứa các file config
+
+.git status
+	hiển thị tất cả trạng thí của repository
+
+.git add
+	//khi muốn lưu lịch sử  edit src -> đẩy file đã edit từ  working directory vào staging của repository
+	//staging: là nơi review lại các commit (lịch sử chỉnh sửa src)
+	git add <file> -> add file vào staging, để commit
+	git rm --cached <file> -> remove file khỏi staging
+
+.git commit
+	git commit -m "<message>"	-> đẩy commit lên repository
+	git commit --amend			-> edit commit
+
+.git push
+	git remote add origin <url_git>	-> connect local repository với remote repository
+	git push -u origin	master		-> upstream lên branch master của origin
+	//git push --set-upstream origin master
+	git push --force	-> push over-write (ghi đè commit từ local lên remote)
+
+.git log
+	git log --oneline	-> show list commit
+
+.git branch
+	git branch	-> list branch
+	git branch <branch_name>	-> create branch từ commit hiện tại
+	git branch <branch_name> <commit_id>	-> create branch từ  1 commit bất kỳ
+	git checkout <branch_name>	-> checkout sang branch khác
+	git checkout -b <branch_name>	-> create branch từ  commit hiện tại và checkout sang branch đó
+	git branch -d <branch_name>		-> delete branch
+
+.git merge
+	git checkout master
+	git merge B1		-> merge commit từ B1 vào master
+	git merge B1 --no-ff	-> merge no fast forward từ B1 vào master
+	//no-ff: giữ được lịch sử commit đã được tạo ra từ branch nào
+
+.git reset
+	git commit C10
+	git reset --hard C2	-> reset hard từ C10 về C2, xóa toàn bộ chênh lệch giữa 2 commit (mất C3->C9)
+	git reset --mixed
+	git reset --soft
+
+.git pull request
+	//request senior review src trước khi approve merge src
+
+.git rebase
+	//thay đổi nguồn gốc của branch
+	git check B1
+	git rebase master	-> rebase B1 lên trên master
+	git rebase master --preserve-merges -> lưu ý rebase khi B1 đã được merge từ branch khác vào
+
+.git squash
+	git checkout master		//master đang cao hơn B1 3 commit C1,C2,C3
+	git rebase B1 -i	-> i:interaction, gộp 3 commit C1,C2,C3
+		pick C1		-> pick C1		//gộp C2,C3 vào commit C1
+		pick C2		-> squash C2
+		pick C3		-> squash C3
+	//OR: gộp N commit
+	git log --oneline
+	git rebase -i HEAD~3	-> xác định gộp 3 commit cuối (N:=3)
+		pick C1		-> pick C1	//gộp 3 commit C1,C2,C3 vào 1 commit C1
+		pick C2		-> s C2
+		pick C3		-> s C3
+		//edit commit C1, comment C2,C3 bằng cách thêm '#' ở đầu dòng
+
+
+.git cherry-pick
+	git checkout master
+	git cherry-pick C2		-> copy 1 bản commit C2 của branch B1, đưa qua branch master
+
+---
+Cách sử dụng Git trong THỰC TẾ | Github | Ông Dev
+https://youtu.be/O5uT6p6VWjY
