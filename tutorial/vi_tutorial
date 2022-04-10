@@ -1,4 +1,148 @@
-Sử dụng "vi" trong Linux
+----------------------------------------------------------------------------------
+| Hướng dẫn sử dụng VIM - Tool gõ code hack não lập trình viên | Vũ Nguyễn Coder |
+----------------------------------------------------------------------------------
+https://youtu.be/Tp8i1EHsQ1Q
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<< VIM SHORT-CUT >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[1] Mode của Vim
+Mode:	NORMAL : bôi đen ký tự được chọn
+	INSERT : con trỏ ở trước ký tự được chọn, dùng để insert
+	VISUAL : để bôi đen text
+	COMMAND: để gõ lệnh
+	
+i >> vào mode INSERT
+a >> chuyển mode INSERT tại vị trí sau con trỏ (after)
+A >> chuyển mode INSERT tại vị trí cuối dòng (Shift+a)
+o >> tạo dòng mới ở dưới và chuyền mode INSERT tại đầu dòng đó
+O >> tạo dòng mới ở trên và chuyển mode INSERT tại đầu dòng đó (Shift+o)
+u >> Undo
+Ctrl+r >> Redo
+
+v >> vào mode VISUAL
+Shift+v >> bôi đen cả dòng
+viw >> bôi đen 1 từ (visual in word)
+ggVG >> bôi đen toàn bộ văn bản
+
+: >> vào mode COMMAND
+:echo "Hello" >> in 1 giá trị nào đó
+:let x=10 >> gán 1 biến
+
+[2] Điều hướng
+h >> trái
+j >> xuống
+k >> lên
+l >> phải
+gg >> lên đầu file
+G >> xuống cuối file
+:line_num >> tới dòng mong muốn
+w >> di chuyển tới word tiếp theo
+b >> di chuyển tới word trước đó
+0 >> di chuyển đến đầu dòng (Home)
+$ >> di chuyển đến cuối dòng (End)
+
+[3] Edit
+y >> copy đoạn text được bôi đen
+p >> paste vào dòng bên dưới con trỏ
+P >> paste vào dòng bên trên con trỏ
+d >> cut/delete đoạn text được bôi đen
+
+[4] Search
+/word >> search word
+* >> tìm kiếm word tại vị trí con trỏ
+n >> di chuyển con trỏ đến vị trí tìm kiếm tiếp theo
+N >> di chuyển con trỏ đến vị trí tìm kiếm trước đó
+:%s/old_text/new_text >> thay thế text
+
+[5] Open/Close file
+:e file_name >> mở file
+:q >> thoát VIM
+:bd >> thoát file đang mở (buffer delete)
+:w >> save file (write)
+:wq >> save và thoát
+:q! >> thoát nhưng không save
+:vs >> mở file và chia đôi ô cửa sổ (vertical split)
+Ctrl+w+h/j/k/l >> di chuyển con trỏ giữa các ô cửa sổ
+Ctrl+w+H/J/K/L >> đổi vị trí các ô cửa sổ
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<< VIM INSTALL >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+sudo apt install neovim
+nvim
+
+[prepare application]
+sudo apt install git
+sudo apt install nodejs
+sudo apt install python
+
+[provider]
+.cơ chế kết nối từ VIM sang các môi trường hoạt động khác (Node.js, Python, Lua...)
+sudo apt install npm
+npm install neovim -g		(Node package manager ... global)
+pip install pynvim		(Python installer package)
+nvim
+>:checkhealth
+
+[plugin manager]
+vim-plug
+git clone https://github.com/junegunn/vim-plug
+nvim .vimrc
+  call plug#begin('/home/<user_name>/nvim/plugged')
+  "{{ Theme }}
+    Plug 'joshdick/onedark.vim'
+  call plug#end()
+:PlugInstall	>> install plugin
+:PlugClear	>> uninstall plugin
+:source %	>> reload nvim .vimrc
+
+[plugin list]
+"{{ Theme }}
+Plug 'joshdick/onedark.vim'			" Dark theme
+"{{ File browser }}
+Plug 'preservim/nerdTree'			" File browser
+Plug 'Xuyuanp/nerdtree-git-plugin'		" Git status
+Plug 'ryanoasis/vim-devicons'			" Icon
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+"{{ File search }}
+Plug 'junegunn/fzf', {'do': { -> fzf#install() }}	" Fuzzy finder
+Plug 'junegunn/fzf.vim'
+"{{ Status bar }}
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"{{ Terminal }}
+Plug 'voldikss/vim-floaterm'				" Float terminal
+"{{ Code intellisense }}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}		" Language server
+Plug 'jiangmiao/auto-pairs'				" Auto pairs
+Plug 'alvan/vim-closetag'
+Plug 'mattn/emmet-vim'
+"{{ Code syntax highlight }}
+Plug 'jackguo380/vim-lsp-cxx-highlight'			" C++ syntax highlight
+"{{ Debugging }}
+Plug 'puremourning/vimspector'				" Vimspector
+"{{ Source code version control }}
+Plug 'tpope/vim-fugitive'				" Git
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<< VIM CONFIG >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+[windows]
+C:\Users\<user_name>\AppData\Local\nvim\init.vim
+[linux]
+/home/<user_name>/.vimrc
+(nếu không thấy thì tự tạo ra folder/file tương ứng, có thể tải về)
+git clone https://gist.github.com/8703722.git
+git clone https://github.com/VuNguyenCoder/VimConfig.git
+
+nvim .vimrc	(viết bằng ngôn ngữ VimScript)
+:set number >> Show number line
+:set nonumber >> Not show number line
+
+
+================================================================================================================
+
+----------------------------------------------------------------------------------
+|                            Sử dụng "vi" trong Linux                            |
+----------------------------------------------------------------------------------
+https://blog.duyet.net/2014/06/su-dung-trinh-soan-thao-vi-trong-linux.html
 
 Linux là một hệ điều hành được điều khiển đa phần qua môi trường dòng lệnh (console), thêm vào đó, các file cấu hình dịch vụ trên Linux thường được chỉnh sửa bởi trình editor là vi (hay vim, bản cải thiện của vi. Nếu bạn là người thường xuyên quản trị server linux qua console, thì vi là trình tiện ích hay sử dụng nhất. Do vậy, học cách sử dụng vi là một yêu cầu tối thiểu và cần thiết cho một người sử dụng linux.
 
@@ -60,10 +204,3 @@ Linux là một hệ điều hành được điều khiển đa phần qua môi 
 9. Shell
 
     Sử dụng :!command để thi hành lệnh command trong môi trường vi. Trên đây là giới thiệu cách sử dụng vi một cách cơ bản và đủ dùng cho mọi đối tượng người sử dụng linux. Người dùng muốn tham khảo thêm có thể lên website của vim tại https://www.vim.org/.
-
-Published 15 Jun 2014
-
-    LinuxFedora
-
----
-https://blog.duyet.net/2014/06/su-dung-trinh-soan-thao-vi-trong-linux.html
